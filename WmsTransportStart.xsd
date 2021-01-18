@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<xs:schema xmlns:wms="http://www.tgw-group.com/v1.0/WmsTransportStart.xsd" xmlns:ct="http://www.tgw-group.com/v1.0/CommonTypes.xsd" xmlns:mstns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tgw-group.com/v1.0/WmsTransportStart.xsd" elementFormDefault="qualified" version="1.0">
+  <xs:import namespace="http://www.tgw-group.com/v1.0/CommonTypes.xsd" schemaLocation="CommonTypes.xsd"/>
+  <xs:annotation>
+    <xs:appinfo>WMS Transport Start Instrucction Message</xs:appinfo>
+    <xs:documentation>
+      This message is used by the WMS to isntruct TGW to move a tote to a destination zone, whether a tote is empty or to request empty totes
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="body" type="wms:TransportStart"/>
+  <!-- Body -->
+  <xs:complexType name="TransportStart">
+    <xs:sequence>
+      <!-- Message Header is a standard block across all messages -->
+      <xs:element name="MessageHeader" type="ct:MessageHeader" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <!-- Message is the body of the message and is unique to the Message Type -->
+      <xs:element name="Message" type="wms:TransportStartMessage" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- Message-->
+  <xs:annotation/>
+  <xs:complexType name="TransportStartMessage">
+    <xs:sequence>
+      <!-- Transport Type is a standard Elemant that is used for identifying what process the message needs to take part in -->
+      <xs:element name="transporttype" type="ct:TransportType" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <!-- This is the area or process that the move is destind for. If this is Empty Loadcarrier requests just send the final TransportComplete messages and no iterim ones-->
+      <xs:element name="priority" type="ct:priority" nillable="true" minOccurs="0" maxOccurs="1"/>
+      <!-- This maybe sent by Reflex so that the WCS can prioritise moves based on the FIFO and Priority of moves -->
+      <xs:element name="cutofftime" type="xs:dateTime" nillable="true" minOccurs="0" maxOccurs="1"/>
+      <!--- This is the time that the move needs to be processed by {will need an offset in the WCS to handle making sure that this is handled -->
+      <xs:element name="reasoncode" type="ct:charstring100" nillable="true" minOccurs="0" maxOccurs="1"/>
+      <!--This will be sent by Reflex for tracking purposes -->
+      <xs:element name="batchid" type="ct:charstring20" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <!-- -->
+      <xs:element name="loadcarrierid" type="ct:int18" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="destinationid" type="ct:charstring100" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="alternativedestinationid" type="ct:charstring100" nillable="true" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="workstationid" type="ct:charstring30" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="positionid" type="ct:charstring50" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="issingletotebatch" type="xs:boolean" nillable="false" minOccurs="0" maxOccurs="1"/>
+      <!-- This is to tell you that the system is only expecting one tote and can go directly to the area if space is allowed for multis -->
+      <xs:element name="isdirect" type="xs:boolean" nillable="false" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="isxdock" type="xs:boolean" nillable="false" minOccurs="0" maxOccurs="1"/>
+      <!-- This is to advise that the system must go directly to the chosen area and not via the stingray as would be normal -->
+      <xs:element name="ishighvalue" type="xs:boolean" nillable="false" minOccurs="0" maxOccurs="1"/>
+      <!--  This field is to note that the tote is carrying stock that has high value and when it is unable to arrive at Destination adn alterantive destination (if there is one) then it should go to the stingray-->
+      <xs:element name="emptytotequantity" type="xs:integer" nillable="false" minOccurs="0" maxOccurs="1"/>
+      <!--This field is only used when the transport type is set to empty so that a number of empty totes can be called -->
+      <xs:element name="extradata" type="ct:ExtraDataList" nillable="true" minOccurs="0" maxOccurs="1"/>
+      <!-- Used if there is data that we need to have from Reflex or the WCS that we didn't find during the design phase -->
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

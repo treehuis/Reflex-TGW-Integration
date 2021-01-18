@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:er="http://www.tgw-group.com/v1.0/WcsTransportStart.xsd" xmlns:ct="http://www.tgw-group.com/v1.0/CommonTypes.xsd" xmlns:mstns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tgw-group.com/v1.0/WcsTransportStart.xsd" elementFormDefault="qualified" version="1.0">
+
+<xs:element name="errorlist" type="er:Errors" />
+
+<xs:complexType name="Errors">
+<xs:sequence>
+	<xs:element name="error" type="er:Error" minOccurs="1" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Error">
+	<xs:sequence>
+		<xs:element name="source" type="er:ErrorSource" minOccurs="1" maxOccurs="1"/>
+		<xs:element name="level" type="er:ErrorLevel" minOccurs="1" maxOccurs="1" />
+		<xs:element name="errorcode" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+		<xs:element name="errordescription" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		<xs:element name="resolutioninstructions" type="xs:string" minOccurs="1" maxOccurs="1"/>
+	</xs:sequence>
+</xs:complexType>	
+<xs:simpleType name="ErrorSource">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WCS"/>
+			<xs:enumeration value="WMS"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ErrorLevel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CRITICAL"/>
+			<xs:enumeration value="HIGH"/>
+			<xs:enumeration value="MEDIUM"/>
+			<xs:enumeration value="LOW"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

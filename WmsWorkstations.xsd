@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<xs:schema xmlns:reflex="http://www.tgw-group.com/v1.0/WmsWorkstation.xsd" xmlns:ct="http://www.tgw-group.com/v1.0/CommonTypes.xsd" xmlns:mstns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tgw-group.com/v1.0/WmsWorkstation.xsd" elementFormDefault="qualified" version="1.0">
+	<xs:import namespace="http://www.tgw-group.com/v1.0/CommonTypes.xsd" schemaLocation="CommonTypes.xsd"/>
+	<!-- New Message -->
+	<xs:element name="body" type="reflex:Workstation"/>
+	<!-- Body -->
+	<xs:complexType name="Workstation">
+		<xs:sequence>
+			<xs:element name="MessageHeader" type="ct:MessageHeader" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Message" type="reflex:WorkstationMessage" nillable="false" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Message-->
+	<xs:complexType name="WorkstationMessage">
+		<xs:sequence>
+			<xs:element name="wmsworkstationid" type="ct:charstring100" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="wcsworkstationid" type="ct:charstring100" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="wmsworkstationdescription" type="ct:charstring100" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="workstationtype" type="ct:WorkstationType" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="workstationsubtype" type="ct:charstring100" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="workstationstate" type="ct:WorkstationState" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="workstationzones" type="reflex:WorkstationZones" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="outboundlocations" type="ct:Positions" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="extradata" type="ct:ExtraData" nillable="true" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WorkstationZones">
+		<xs:sequence>
+			<xs:element name="workstationzone" type="ct:charstring100" nillable="false" minOccurs="1" maxOccurs="9"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

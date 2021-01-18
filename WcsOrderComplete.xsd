@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<xs:schema xmlns:wcs="http://www.tgw-group.com/v1.0/WcsOrderComplete.xsd" xmlns:ct="http://www.tgw-group.com/v1.0/CommonTypes.xsd" xmlns:mstns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tgw-group.com/v1.0/WcsOrderComplete.xsd" elementFormDefault="qualified" version="1.0">
+	<xs:import namespace="http://www.tgw-group.com/v1.0/CommonTypes.xsd" schemaLocation="CommonTypes.xsd"/>
+	<!-- New Message -->
+	<xs:element name="body" type="wcs:OrderComplete"/>
+	<!-- Body -->
+	<xs:complexType name="OrderComplete">
+		<xs:sequence>
+			<xs:element name="MessageHeader" type="ct:MessageHeader" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Message" type="wcs:OrderCompleteMessage" nillable="false" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Message-->
+	<xs:complexType name="OrderCompleteMessage">
+		<xs:sequence>
+			<xs:element name="transportype" type="ct:TransportType" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="batchid" type="ct:charstring20" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="workstationid" type="ct:charstring30" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="orderid" type="ct:charstring20" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="positionid" type="ct:charstring50" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="singlechute" type="xs:boolean" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="extradata" type="ct:ExtraData" nillable="true" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

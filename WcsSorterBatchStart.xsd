@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<xs:schema xmlns:wcs="http://www.tgw-group.com/v1.0/WcsSorterBatchStart.xsd" xmlns:ct="http://www.tgw-group.com/v1.0/CommonTypes.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tgw-group.com/v1.0/WcsSorterBatchStart.xsd" elementFormDefault="qualified" version="1.0">
+	<xs:import namespace="http://www.tgw-group.com/v1.0/CommonTypes.xsd" schemaLocation="CommonTypes.xsd"/>
+	<!-- New Message -->
+	<xs:element name="body" type="wcs:SorterBatchStart"/>
+	<!-- Body -->
+	<xs:complexType name="SorterBatchStart">
+		<xs:sequence>
+			<xs:element name="MessageHeader" type="ct:MessageHeader" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Message" type="wcs:SorterBatchStartMessage" nillable="false" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Message-->
+	<xs:complexType name="SorterBatchStartMessage">
+		<xs:sequence>
+			<xs:element name="transporttype" type="ct:TransportType" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="batchid" type="ct:charstring20" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="workstationid" type="ct:charstring30" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="releasedate" type="xs:dateTime" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="loadcarriers" type="ct:LoadCarrierIds" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="errors" type="ct:Errors" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<!-- Here there are two types of error, one where the WMS doesn't send teh sorter batch & 2 when the WCS has a completed batch and teh system doesn't have all of the totes in teh stingray -->
+			<xs:element name="extradata" type="ct:ExtraData" nillable="true" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

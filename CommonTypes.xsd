@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- edited with XMLSpy v2016 rel. 2 sp1 (x64) (http://www.altova.com) by Alixx Skevington (TGW) -->
+<xs:schema xmlns="http://www.tgw-group.com/v1.0/CommonTypes.xsd" xmlns:mstns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tgw-group.com/v1.0/CommonTypes.xsd" elementFormDefault="qualified" version="1.0">
+  <!-- This is the XSD that contains the base types, and the overrideable types for multiple message types -->
+  <!-- Universal Complex Types -->
+  <xs:complexType name="MessageHeader">
+    <xs:annotation>
+      <xs:documentation>This is default data that is required for all messages</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="msgId" type="MessageId" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="msgType" type="MessageType" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="msgSubType" type="MessageSubType" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="msgTime" type="xs:dateTime" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="sender" type="MessageSenderReceiver" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="receiver" type="MessageSenderReceiver" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="warehouse" type="charstring3" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExtraDataList">
+    <xs:annotation>
+      <xs:documentation>This allows you to capture in a key pair value data that has not been previously entered into the schema</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="extradata" type="ExtraData" nillable="true" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--- Enumerations-->
+  <xs:simpleType name="MessageType">
+    <xs:restriction base="charstring30">
+      <xs:enumeration value="TransportComplete"/>
+      <xs:enumeration value="SorterBatch"/>
+      <xs:enumeration value="SorterBatchStart"/>
+      <xs:enumeration value="OrderUpdate"/>
+      <xs:enumeration value="OrderComplete"/>
+      <xs:enumeration value="SorterBatchComplete"/>
+      <xs:enumeration value="TransportStart"/>
+      <xs:enumeration value="WorkstationStatus"/>
+      <xs:enumeration value="MheState"/>
+      <xs:enumeration value="EmptyToteConfirm"/>
+      <xs:enumeration value="EmptyToteRequest"/>
+      <xs:enumeration value="ChuteEmptyConfirm" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attribute name="MessageTypes">
+    <xs:simpleType>
+      <xs:list itemType="MessageType"/>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:simpleType name="MessageSubType">
+    <xs:restriction base="charstring30">
+      <xs:enumeration value="TGW"/>
+      <xs:enumeration value="Receiving"/>
+      <xs:enumeration value="Replenishment"/>
+      <xs:enumeration value="StockMove"/>
+      <xs:enumeration value="Picking"/>
+      <xs:enumeration value="Sorting"/>
+      <xs:enumeration value="Empty"/>
+      <xs:enumeration value="Exception"/>
+      <xs:enumeration value="PackingAutomatic"/>
+      <xs:enumeration value="Workstation"/>
+      <xs:enumeration value="MheUpDown"/>
+      <xs:enumeration value="SorterAutoMulti"/>
+      <xs:enumeration value="Cancel"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attribute name="MessageSubTypes">
+    <xs:simpleType>
+      <xs:list itemType="MessageSubType"/>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:simpleType name="MessageSenderReceiver">
+    <xs:restriction base="charstring10">
+      <xs:enumeration value="WMS"/>
+      <xs:enumeration value="WCS"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attribute name="MessageSenderReceivers">
+    <xs:simpleType>
+      <xs:list itemType="MessageSenderReceiver"/>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:simpleType name="TransportType">
+    <xs:restriction base="charstring30">
+      <xs:enumeration value="Empty"/>
+      <xs:enumeration value="EmptyToteRequest"/>
+      <xs:enumeration value="Putaway"/>
+      <xs:enumeration value="CrossDock"/>
+      <xs:enumeration value="Exception"/>
+      <xs:enumeration value="Replensihment"/>
+      <xs:enumeration value="PackingManualSingle"/>
+      <xs:enumeration value="PackingAutomaticSingle"/>
+      <xs:enumeration value="SmartMailer"/>
+      <xs:enumeration value="Reject"/>
+      <xs:enumeration value="SorterManualMulti"/>
+      <xs:enumeration value="SorterAutoMulti"/>
+      <xs:enumeration value="MheUp"/>
+      <xs:enumeration value="MheDown"/>
+      <xs:enumeration value="AutomaticSorting"/>
+      <xs:enumeration value="Picking"/>
+      <xs:enumeration value="MonoHighTheftRisk101"/>
+      <xs:enumeration value="MonoManualVAS102"/>
+      <xs:enumeration value="MonoManual103"/>
+      <xs:enumeration value="MonoSmartMailer104"/>
+      <xs:enumeration value="CartonWrap105"/>
+      <xs:enumeration value="MultiHighTheftRisk106"/>
+      <xs:enumeration value="MultiManualVAS107"/>
+      <xs:enumeration value="MultiManual108"/>
+      <xs:enumeration value="MultiAutomaticSorting109"/>
+      <xs:enumeration value="Unknown"/>
+      <xs:enumeration value="ManualSorting"/>
+      <xs:enumeration value="MOMAHV101"/>
+      <xs:enumeration value="MOMAVAS102"/>
+      <xs:enumeration value="MOMA103"/>
+      <xs:enumeration value="MOMESM104"/>
+      <xs:enumeration value="MOMECW105"/>
+      <xs:enumeration value="MUMAHV106"/>
+      <xs:enumeration value="MUMAVAS107"/>
+      <xs:enumeration value="MUMA108"/>
+      <xs:enumeration value="MUAUSO109"/>
+	    <xs:enumeration value="BFC2"/>
+      <!--This is multis -->
+      <!-- This relates to the smart tray conveyor-->
+    </xs:restriction>
+    <!--charstring30-->
+  </xs:simpleType>
+  <xs:simpleType name="AllowedTypes">
+    <xs:restriction base="charstring10">
+      <xs:enumeration value="Integer"/>
+      <xs:enumeration value="String"/>
+      <xs:enumeration value="Double"/>
+      <xs:enumeration value="Bool"/>
+    </xs:restriction>
+    <!--charstring10-->
+  </xs:simpleType>
+  <xs:simpleType name="StorageCategory">
+    <xs:restriction base="charstring3">
+      <xs:enumeration value="GTP"/>
+      <xs:enumeration value="OVS"/>
+      <xs:enumeration value="AMB"/>
+      <xs:enumeration value="CHL"/>
+      <xs:enumeration value="FRZ"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AllowedBarcodeTypes">
+    <xs:restriction base="charstring8">
+      <xs:enumeration value="EAN8"/>
+      <xs:enumeration value="EAN10"/>
+      <xs:enumeration value="EAN13"/>
+      <xs:enumeration value="UPC-A"/>
+      <xs:enumeration value="UPC-E"/>
+    </xs:restriction>
+    <!--charstring8-->
+  </xs:simpleType>
+  <xs:simpleType name="ChuteTypes">
+    <xs:restriction base="charstring1">
+      <xs:enumeration value="A"/>
+      <xs:enumeration value="B"/>
+      <xs:enumeration value="D"/>
+    </xs:restriction>
+    <!--charstring1-->
+  </xs:simpleType>
+  <xs:simpleType name="Destinations">
+    <xs:restriction base="charstring100">
+    </xs:restriction>
+    <!--charstring100-->
+  </xs:simpleType>
+  <xs:simpleType name="LoadCarrierType">
+    <xs:restriction base="charstring10">
+      <xs:enumeration value="Empty"/>
+      <xs:enumeration value="Full"/>
+      <xs:enumeration value="VariTote"/>
+    </xs:restriction>
+    <!--charstring10-->
+  </xs:simpleType>
+  <xs:simpleType name="WorkstationState">
+    <xs:restriction base="charstring10">
+      <xs:enumeration value="Off"/>
+      <xs:enumeration value="On"/>
+      <xs:enumeration value="CloseDown"/>
+    </xs:restriction>
+    <!--charstring10-->
+  </xs:simpleType>
+  <xs:simpleType name="OrderState">
+    <xs:restriction base="charstring10">
+      <xs:enumeration value="Partial"/>
+      <xs:enumeration value="Full"/>
+    </xs:restriction>
+    <!--charstring10-->
+  </xs:simpleType>
+  <!-- strings -->
+  <xs:simpleType name="EmptyString">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value=""/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring1">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring3">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring8">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring9">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring15">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring20">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring30">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="30"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring100">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="charstring1000">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RequiredString50">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- numbers -->
+  <xs:simpleType name="int1">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="int2">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="99"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="int3">
+    <xs:restriction base="xs:integer">
+      <xs:totalDigits value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="int18">
+    <xs:restriction base="xs:integer">
+      <xs:totalDigits value="18"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="priority">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="99"/>
+    </xs:restriction>
+    <!-- What does priority mean -->
+  </xs:simpleType>
+  <xs:simpleType name="dimension">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="7"/>
+      <xs:fractionDigits value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EAN13">
+    <xs:restriction base="xs:integer">
+      <xs:totalDigits value="13"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MessageId">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="00000000000000000001"/>
+      <xs:maxInclusive value="99999999999999999999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Errors">
+    <xs:sequence>
+      <xs:element name="error" type="Error" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Error">
+    <xs:sequence>
+      <xs:element name="errorid" type="charstring10" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="errordescription" type="charstring100" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExtraData">
+    <xs:sequence>
+      <xs:element name="key" type="charstring10" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="value" type="charstring100" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="allowedtype" type="AllowedTypes" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Orders">
+    <xs:sequence>
+      <xs:element name="order" type="Order" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Order">
+    <xs:sequence>
+      <xs:element name="orderid" type="charstring20" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="cutofftime" type="xs:dateTime" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="chutetype" type="ChuteTypes" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="orderpriority" type="priority" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="orderlines" type="OrderLines" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderLines">
+    <xs:sequence>
+      <xs:element name="orderline" type="OrderLine" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderLine">
+    <xs:sequence>
+      <xs:element name="sku" type="EAN13" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="quantity" type="int3" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PackLines">
+    <xs:sequence>
+      <xs:element name="reflexsku" type="EAN13" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="requestedquantity" type="int3" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="sortedquantity" type="int3" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="missingquantity" type="int3" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LoadCarrierIds">
+    <!-- Dedicated loadcarrier type for SorterbatchStart (without SKU and orderID) -->
+    <xs:sequence>
+      <xs:element name="loadcarrierid" type="int18" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LoadCarriers">
+    <xs:sequence>
+      <xs:element name="loadcarrier" type="LoadCarrier" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LoadCarrier">
+    <xs:sequence>
+      <xs:element name="loadcarrierid" type="int18" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="skus" type="Skus" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="orders" type="Orders" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Skus">
+    <xs:sequence>
+      <xs:element name="sku" type="Sku" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Sku">
+    <xs:sequence>
+      <xs:element name="barcode" type="EAN13" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="skudescription" type="charstring100" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="height" type="dimension" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="width" type="dimension" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="length" type="dimension" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="weight" type="dimension" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="requireserialnumber" type="xs:boolean" nillable="false" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SorterResults">
+    <xs:sequence>
+      <xs:element name="orderid" type="charstring20" nillable="true" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="packlines" type="PackLines" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Position">
+    <xs:sequence>
+      <xs:element name="positionid" type="charstring50" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="loadcarriertype" type="LoadCarrierType" nillable="true" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Positions">
+    <xs:sequence>
+      <xs:element name="position" type="Position" nillable="true" minOccurs="0" maxOccurs="7"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="WorkstationType">
+    <xs:restriction base="charstring20">
+      <xs:enumeration value="Putaway"/>
+      <xs:enumeration value="ManualSingle"/>
+      <xs:enumeration value="ManualMulti"/>
+      <xs:enumeration value="ReceivingStandard"/>
+      <xs:enumeration value="ReceivingException"/>
+      <xs:enumeration value="Putaway"/>
+      <xs:enumeration value="Induct"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Nullable types : A base type that can also accept an empty string -->
+  <!-- Date -->
+  <xs:simpleType name="NullableDateTime">
+    <xs:union memberTypes="xs:dateTime EmptyString"/>
+  </xs:simpleType>
+  <!-- Int -->
+  <xs:simpleType name="NullableInt">
+    <xs:union memberTypes="xs:integer EmptyString"/>
+  </xs:simpleType>
+</xs:schema>
