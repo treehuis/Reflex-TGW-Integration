@@ -13,7 +13,7 @@
   <!-- Message-->
   <xs:complexType name="RequestedEmptyToteConfirmMessage">
     <xs:sequence>
-      <xs:element name="loadcarriers" type="ct:LoadCarrierIds" nillable="false" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="loadcarriers" type="wcs:LoadCarrierIds" nillable="false" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>
